@@ -15,6 +15,10 @@ class User {
     national_id,
     birth = null,
     address,
+    profile_url = null,
+    profile_id = null,
+    is_registerd = false,
+    is_verfied = false,
     created_at = new Date(),
     updated_at = new Date(),
   }) {
@@ -31,6 +35,10 @@ class User {
     this.national_id = national_id;
     this.birth = birth;
     this.address = address;
+    this.profile_url = profile_url;
+    this.profile_id = profile_id;
+    this.is_registerd = is_registerd;
+    this.is_verfied = is_verfied;
     this.created_at = created_at;
     this.updated_at = updated_at;
   }
@@ -48,6 +56,10 @@ class User {
       whatsapp: this.whatsapp,
       national_id: this.national_id,
       birth: this.birth,
+      profile_url: this.profile_url,
+      profile_id: this.profile_id,
+      is_registerd: this.is_registerd,
+      is_verfied: this.is_verfied,
       address: this.address,
       created_at: this.created_at,
       updated_at: this.updated_at
@@ -75,6 +87,12 @@ function createRandomUser(id) {
     password: generateRandomString(10),
     status: 'active', // Assuming status is an enum
     role: 'user', // Assuming role is an enum
+    whatsapp: `123-456-78${id.toString().padStart(2, '0')}`,
+    birth: null,
+    profile_url: null,
+    profile_id: null,
+    is_registerd: false,
+    is_verfied: false,
     mobile: `123-456-78${id.toString().padStart(2, '0')}`,
     national_id: generateRandomString(10),
     address: `${id} main mt, anytown, usa`,
@@ -83,7 +101,7 @@ function createRandomUser(id) {
 
 // Create 100 user objects
 const users = [];
-for (let i = 1; i <= 50; i++) {
+for (let i = 1; i <= 10; i++) {
   const user = createRandomUser(i);
   users.push(user.getUserInfo());
 }

@@ -4,12 +4,29 @@ const Users = require('../data/user.mock.data');
 
 module.exports.getAllUsers = async (req, res) => {
     try {
+        const page = parseInt(req.query.page) || 1;
+        const size = parseInt(req.query.size) || 10;
+
+        const startIndex = (page - 1) * size;
+        const endIndex = page * size;
+
         await new Promise(resolve => setTimeout(resolve, 1500));
-        res.status(200).json(Users);
+
+        const paginatedUsers = Users.slice(startIndex, endIndex);
+        const totalUsers = Users.length;
+
+        res.status(200).json({
+            totalUsers,
+            page,
+            size,
+            totalPages: Math.ceil(totalUsers / size),
+            users: paginatedUsers,
+        });
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
 }
+
 
 // get user by id mock data
 
