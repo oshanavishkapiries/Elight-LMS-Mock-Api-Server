@@ -3,42 +3,52 @@ const fs = require('fs');
 class User {
   constructor({
     id,
+    reg_code,
     first_name,
     last_name,
     email,
-    password,
-    status,
     google_id = null,
-    role,
+    profile_url,
+    national_id,
     mobile,
     whatsapp = null,
-    national_id,
     birth = null,
     address,
-    profile_url = null,
-    profile_id = null,
-    is_registerd = false,
+    medium = null,
+    is_alevel,
+    shy = null,
+    streem = null,
+    grade = null,
+    role = 'user', // Default value is 'user'
     is_verfied = false,
+    is_registerd = false,
+    institute,
+    status = 'active', // Default value is 'active'
     created_at = new Date(),
     updated_at = new Date(),
   }) {
     this.id = id;
+    this.reg_code = reg_code;
     this.first_name = first_name;
     this.last_name = last_name;
     this.email = email;
-    this.password = password;
-    this.status = status; // Should be an enum value
     this.google_id = google_id;
-    this.role = role; // Should be an enum value
+    this.profile_url = profile_url;
+    this.national_id = national_id;
     this.mobile = mobile;
     this.whatsapp = whatsapp;
-    this.national_id = national_id;
     this.birth = birth;
     this.address = address;
-    this.profile_url = profile_url;
-    this.profile_id = profile_id;
-    this.is_registerd = is_registerd;
+    this.medium = medium;
+    this.is_alevel = is_alevel;
+    this.shy = shy;
+    this.streem = streem;
+    this.grade = grade;
+    this.role = role;
     this.is_verfied = is_verfied;
+    this.is_registerd = is_registerd;
+    this.institute = institute;
+    this.status = status;
     this.created_at = created_at;
     this.updated_at = updated_at;
   }
@@ -47,20 +57,27 @@ class User {
   getUserInfo() {
     return {
       id: this.id,
+      reg_code: this.reg_code,
       first_name: this.first_name,
       last_name: this.last_name,
       email: this.email,
-      status: this.status,
-      role: this.role,
+      google_id: this.google_id,
+      profile_url: this.profile_url,
+      national_id: this.national_id,
       mobile: this.mobile,
       whatsapp: this.whatsapp,
-      national_id: this.national_id,
       birth: this.birth,
-      profile_url: this.profile_url,
-      profile_id: this.profile_id,
-      is_registerd: this.is_registerd,
-      is_verfied: this.is_verfied,
       address: this.address,
+      medium: this.medium,
+      is_alevel: this.is_alevel,
+      shy: this.shy,
+      streem: this.streem,
+      grade: this.grade,
+      role: this.role,
+      is_verfied: this.is_verfied,
+      is_registerd: this.is_registerd,
+      institute: this.institute,
+      status: this.status,
       created_at: this.created_at,
       updated_at: this.updated_at
     };
@@ -81,27 +98,33 @@ function generateRandomString(length) {
 function createRandomUser(id) {
   return new User({
     id: id.toString().padStart(12, '0'), // Ensure id is 12 characters long
+    reg_code: generateRandomString(8),
     first_name: `firstName${id}`,
-    last_name: `fastName${id}`,
+    last_name: `lastName${id}`,
     email: `user${id}@example.com`,
-    password: generateRandomString(10),
-    status: 'active', // Assuming status is an enum
-    role: 'user', // Assuming role is an enum
-    whatsapp: `123-456-78${id.toString().padStart(2, '0')}`,
-    birth: null,
-    profile_url: null,
-    profile_id: null,
-    is_registerd: false,
-    is_verfied: false,
-    mobile: `123-456-78${id.toString().padStart(2, '0')}`,
+    google_id: generateRandomString(10),
+    profile_url: `https://shorturl.at/2C2bZ`,
     national_id: generateRandomString(10),
-    address: `${id} main mt, anytown, usa`,
+    mobile: `123-456-78${id.toString().padStart(2, '0')}`,
+    whatsapp: `123-456-78${id.toString().padStart(2, '0')}`,
+    birth: new Date(),
+    address: `${id} main st, anytown, usa`,
+    medium: 'english',
+    is_alevel: Math.random() > 0.5,
+    shy: `shy${id}`,
+    streem: `streem${id}`,
+    grade: `grade${id}`,
+    role: 'user', //['user', 'admin', 'owner', 'employee'][Math.floor(Math.random() * 4)],
+    is_verfied: Math.random() > 0.5,
+    is_registerd: Math.random() > 0.5,
+    institute: `institute${id}`,
+    status: 'active' // ['active', 'delete', 'block'][Math.floor(Math.random() * 3)],
   });
 }
 
 // Create 100 user objects
 const users = [];
-for (let i = 1; i <= 10; i++) {
+for (let i = 1; i <= 5; i++) {
   const user = createRandomUser(i);
   users.push(user.getUserInfo());
 }
